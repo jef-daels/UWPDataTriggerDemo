@@ -1,0 +1,94 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPDataTriggerDemo">
+
+    <x:Boolean x:Key="true">true</x:Boolean>
+    <x:Boolean x:Key="false">false</x:Boolean>
+
+    <SolidColorBrush x:Key="redBrush" Color="Red" />
+    <SolidColorBrush x:Key="greenBrush" Color="Green" />
+    <DataTemplate x:Key="inputTemplate" >
+        <UserControl>
+            <Grid x:Name="grd" >
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="integertest">
+                        <VisualState x:Name="invalid">
+                            <VisualState.StateTriggers>
+                                <local:BooleanDataTrigger 
+                                    local:BooleanDataTrigger.TriggerValue="False"
+                                    local:BooleanDataTrigger.DataValue="{Binding IsValidInteger}" 
+                                    />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="txb.(UIElement.Visibility)" Value="Visible" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="valid">
+                            <VisualState.StateTriggers>
+                                <local:BooleanDataTrigger 
+                                    local:BooleanDataTrigger.TriggerValue="True"
+                                    local:BooleanDataTrigger.DataValue="{Binding IsValidInteger}" 
+                                    />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="txb.(UIElement.Visibility)" Value="Collapsed" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" >
+                    <TextBox BorderThickness="2" Margin="4"
+                         Text="{Binding UserInput,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock x:Name="txb" Text="!" FontSize="22" Foreground="Red" />
+                </StackPanel>
+            </Grid>
+        </UserControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="inputTemplate2" >
+        <UserControl>
+            <Grid x:Name="grd" >
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="integertest">
+                        <VisualState x:Name="invalid">
+                            <VisualState.StateTriggers>
+                                <local:DataTrigger 
+                                    local:DataTrigger.TriggerValue="{StaticResource false}"
+                                    local:DataTrigger.DataValue="{Binding IsValidInteger}" 
+                                    />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="txb.(UIElement.Visibility)" Value="Visible" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="valid">
+                            <VisualState.StateTriggers>
+                                <local:DataTrigger 
+                                    local:DataTrigger.TriggerValue="{StaticResource true}"
+                                    local:DataTrigger.DataValue="{Binding IsValidInteger}" 
+                                    />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="txb.(UIElement.Visibility)" Value="Collapsed" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" >
+                    <TextBox BorderThickness="2" Margin="4"
+                         Text="{Binding UserInput,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock x:Name="txb" Text="!" FontSize="22" Foreground="Red" />
+                </StackPanel>
+            </Grid>
+        </UserControl>
+    </DataTemplate>
+</ResourceDictionary>
